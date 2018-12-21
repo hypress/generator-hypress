@@ -1,0 +1,2 @@
+# generator-hypress
+hypress generator
