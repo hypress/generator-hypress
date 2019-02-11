@@ -1,0 +1,6 @@
+.vagrant
+vendor
+.hypress/htdocs/wp
+node_modules
+src/bundle.js
+src/style.css

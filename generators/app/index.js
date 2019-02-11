@@ -1,17 +1,22 @@
 'use strict';
 const Generator = require('yeoman-generator');
 const slugify = require('slugify');
+const randomstring = require('randomstring');
 
 module.exports = class extends Generator {
   prompting() {
-    this._firstStage()
+    this.props = {};
+
+    return this._firstStage()
       .then(props => {
+        this.props = Object.assign(this.props, props);
         this.config.set('project-name', props.name);
         return this._secondStage(props);
       })
       .then(props => {
+        this.props = Object.assign(this.props, props);
         this.config.set('project-slug', props.slug);
-        console.log('done', props);
+        console.log('done', this.props);
       });
   }
 
@@ -39,5 +44,30 @@ module.exports = class extends Generator {
     ];
 
     return this.prompt(prompts);
+  }
+
+  writing() {
+    let replaceFields = {
+      projectSlug: this.config.get('project-slug'),
+      projectName: this.config.get('project-name'),
+
+      // Random strings for WP
+      randString1: randomstring.generate(32),
+      randString2: randomstring.generate(32),
+      randString3: randomstring.generate(32),
+      randString4: randomstring.generate(32),
+      randString5: randomstring.generate(32),
+      randString6: randomstring.generate(32),
+      randString7: randomstring.generate(32),
+      randString8: randomstring.generate(32)
+    };
+
+    this.fs.copyTpl(this.templatePath(), this.destinationPath(), replaceFields);
+
+    this.fs.copyTpl(
+      this.templatePath('.hypress/'),
+      this.destinationPath('.hypress'),
+      replaceFields
+    );
   }
 };
