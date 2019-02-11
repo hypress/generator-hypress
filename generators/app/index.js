@@ -1,38 +1,43 @@
 'use strict';
 const Generator = require('yeoman-generator');
-const chalk = require('chalk');
-const yosay = require('yosay');
+const slugify = require('slugify');
 
 module.exports = class extends Generator {
   prompting() {
-    // Have Yeoman greet the user.
-    this.log(
-      yosay(`Welcome to the top-notch ${chalk.red('generator-hypress')} generator!`)
-    );
+    this._firstStage()
+      .then(props => {
+        this.config.set('project-name', props.name);
+        return this._secondStage(props);
+      })
+      .then(props => {
+        this.config.set('project-slug', props.slug);
+        console.log('done', props);
+      });
+  }
 
+  _firstStage() {
     const prompts = [
       {
-        type: 'confirm',
-        name: 'someAnswer',
-        message: 'Would you like to enable this option?',
-        default: true
+        type: 'input',
+        name: 'name',
+        message: 'Please provide a project name',
+        default: this.appname
       }
     ];
 
-    return this.prompt(prompts).then(props => {
-      // To access props later use this.props.someAnswer;
-      this.props = props;
-    });
+    return this.prompt(prompts);
   }
 
-  writing() {
-    this.fs.copy(
-      this.templatePath('dummyfile.txt'),
-      this.destinationPath('dummyfile.txt')
-    );
-  }
+  _secondStage(props) {
+    const prompts = [
+      {
+        type: 'input',
+        name: 'slug',
+        message: 'Please provide a project slug',
+        default: slugify(props.name.toLowerCase())
+      }
+    ];
 
-  install() {
-    this.installDependencies();
+    return this.prompt(prompts);
   }
 };
