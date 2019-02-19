@@ -47,14 +47,14 @@
 	 *
 	 * @since 2.6.0
 	 */
-	define('AUTH_KEY',         <%= randomString1 %>);
-	define('SECURE_AUTH_KEY',  <%= randomString2 %>);
-	define('LOGGED_IN_KEY',    <%= randomString3 %>);
-	define('NONCE_KEY',        <%= randomString4 %>);
-	define('AUTH_SALT',        <%= randomString5 %>);
-	define('SECURE_AUTH_SALT', <%= randomString6 %>);
-	define('LOGGED_IN_SALT',   <%= randomString7 %>);
-	define('NONCE_SALT',       <%= randomString8 %>);
+	define('AUTH_KEY',         '<%= randString1 %>');
+	define('SECURE_AUTH_KEY',  '<%= randString2 %>');
+	define('LOGGED_IN_KEY',    '<%= randString3 %>');
+	define('NONCE_KEY',        '<%= randString4 %>');
+	define('AUTH_SALT',        '<%= randString5 %>');
+	define('SECURE_AUTH_SALT', '<%= randString6 %>');
+	define('LOGGED_IN_SALT',   '<%= randString7 %>');
+	define('NONCE_SALT',       '<%= randString8 %>');
 	
 	/**#@-*/
 	
