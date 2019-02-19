@@ -1,0 +1,22 @@
+{
+  "name": "<%= projectSlug %>",
+  "version": "0.0.0",
+  "authors": [],
+  "require": {
+    "johnpbloch/wordpress": "5.0.3"
+  },
+  "extra": {
+    "wordpress-install-dir": "./.hypress/htdocs/wp/",
+    "installer-paths": {
+      "./.hypress/htdocs/wp/wp-content/mu-plugins/{$name}/": [
+        "type:wordpress-muplugin"
+      ],
+      "./.hypress/htdocs/wp/wp-content/plugins/{$name}/": [
+        "type:wordpress-plugin"
+      ],
+      "./.hypress/htdocs/wp/wp-content/themes/{$name}/": [
+        "type:wordpress-theme"
+      ]
+    }
+  }
+}
