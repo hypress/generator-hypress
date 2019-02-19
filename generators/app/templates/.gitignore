@@ -4,3 +4,6 @@ vendor
 node_modules
 src/bundle.js
 src/style.css
+.hypress/hypress.local.pem
+.hypress/ansible/hypress.retry
+.hypress/*.pem

@@ -1,0 +1,11 @@
+dist: xenial
+
+before_install:
+  - sudo apt-get install -y ansible
+  - wget https://releases.hashicorp.com/vagrant/2.2.3/vagrant_2.2.3_x86_64.deb
+  - sudo dpkg -i vagrant_2.2.3_x86_64.deb
+  # Use managed server plugin as provider to satisfy vagrant
+  # From: https://github.com/hashicorp/vagrant/issues/10224#issuecomment-423803573
+  - vagrant plugin install vagrant-hostmanager
+
+script: ./.hypress/scripts/pre-commit.sh

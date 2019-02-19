@@ -4,6 +4,10 @@
   become: true
 
   tasks:
+  - name: Load variables
+    include_vars:
+      file: settings.yml
+
   - name: Install nodejs
     package:
       name: nodejs
@@ -81,29 +85,74 @@
             Alias /phpmyadmin "/usr/share/phpmyadmin"
             <Directory /usr/share/phpmyadmin>
               Options Indexes FollowSymLinks
-              AllowOverride None
+              AllowOverride All
               Require all granted
             </Directory>
 
             <Directory /host-machine/.hypress/htdocs>
               Options Indexes FollowSymLinks
-              AllowOverride None
+              AllowOverride All
               Require all granted
             </Directory>
         </VirtualHost>
+
+  - stat:
+      path: /host-machine/.hypress/{{ hypress_slug }}.local.pem
+    register: result
+
+  - name: Add hypress virtual host for ssl
+    copy:
+      dest: "/etc/apache2/sites-available/hypress-ssl.conf"
+      content: |
+                <VirtualHost *:443>
+                    SSLEngine on
+                    SSLCertificateFile /host-machine/.hypress/{{ hypress_slug }}.local.pem
+                    SSLCertificateKeyFile /host-machine/.hypress/{{ hypress_slug }}.local-key.pem
+
+                    ServerAdmin webmaster@localhost
+                    ServerName localhost
+                    DocumentRoot /host-machine/.hypress/htdocs/wp
+                    ErrorLog ${APACHE_LOG_DIR}/error.log
+                    CustomLog ${APACHE_LOG_DIR}/access.log combined
+
+                    Alias /phpmyadmin "/usr/share/phpmyadmin"
+                    <Directory /usr/share/phpmyadmin>
+                      Options Indexes FollowSymLinks
+                      AllowOverride All
+                      Require all granted
+                    </Directory>
+
+                    <Directory /host-machine/.hypress/htdocs>
+                      Options Indexes FollowSymLinks
+                      AllowOverride All
+                      Require all granted
+                    </Directory>
+                </VirtualHost>
+    when: result.stat.exists == true
+
+  - name: a2enmod rewrite
+    command: a2enmod rewrite
+    notify:
+      - restart apache2
+
+  - name: a2enmod ssl
+    command: a2enmod ssl
+    notify:
+      - restart apache2
 
   - name: a2ensite hypress
     command: a2ensite hypress
     notify:
       - restart apache2
 
-  - name: a2dissite 000-default
-    command: a2dissite 000-default
+  - name: a2ensite hypress-ssl
+    command: a2ensite hypress-ssl
     notify:
       - restart apache2
+    when: result.stat.exists == true
 
-  - name: a2enmod rewrite
-    command: a2enmod rewrite
+  - name: a2dissite 000-default
+    command: a2dissite 000-default
     notify:
       - restart apache2
 
@@ -146,14 +195,27 @@
     when: result.stat.exists == false
 
   - stat:
-      path: /host-machine/.hypress/htdocs/wp/wp-content/themes/<%= projectSlug %>
+      path: /host-machine/.hypress/htdocs/wp/wp-content/themes/{{ hypress_slug }}
     register: result
 
   - name: Setup symlink to source
     shell: |
       cd /host-machine
-      ln -s ../../../../../src ./.hypress/htdocs/wp/wp-content/themes/<%= projectSlug %>
-    when: result.stat.exists == false
+      ln -s ../../../../../src ./.hypress/htdocs/wp/wp-content/themes/{{ hypress_slug }}
+    when: result.stat.exists == false and
+          hypress_type == 'theme'
+
+  - stat:
+      path: /host-machine/.hypress/htdocs/wp/wp-content/plugins/{{ hypress_slug }}
+    register: result
+
+  - name: Setup symlink to source
+    shell: |
+        cd /host-machine
+        ln -s ../../../../../src ./.hypress/htdocs/wp/wp-content/plugins/{{ hypress_slug }}
+    when: result.stat.exists == false and
+          hypress_type == 'plugin'
+
 
   - name: Run npm install
     become_user: vagrant
@@ -181,12 +243,44 @@
     shell: |
             cd /host-machine/.hypress/htdocs/wp
             if ! $(wp core is-installed); then
-              wp core install --admin_user=hypress --admin_password=hypress --url=<%= projectSlug %>.local --title=hypress --admin_email=root@example.com
-              wp plugin uninstall hello
-              wp plugin uninstall akismet
-              wp post delete 1 2 --force
-              wp theme activate <%= projectSlug %>
+              wp core install --admin_user=hypress --admin_password=hypress --url={{ hypress_slug }}.local --title=hypress --admin_email=root@example.com
             fi
+            if (wp theme is-installed twentynineteen); then
+              wp theme uninstall twentynineteen
+            fi
+            if (wp theme is-installed twentyseventeen); then
+              wp theme uninstall twentyseventeen
+            fi
+            if (wp theme is-installed twentysixteen); then
+              wp theme uninstall twentysixteen
+            fi
+            if (wp plugin is-installed hello); then
+              wp plugin uninstall hello
+            fi
+            if (wp plugin is-installed akismet); then
+              wp plugin uninstall akismet
+            fi
+            if (wp post exists 1); then
+              wp post delete 1 --force
+            fi
+            if (wp post exists 2); then
+              wp post delete 2 --force
+            fi
+
+  - name: Activate theme
+    become_user: vagrant
+    shell: |
+            cd /host-machine/.hypress/htdocs/wp
+            wp theme activate {{ hypress_slug }}
+    when: hypress_type == 'theme'
+
+  - name: Activate plugin
+    become_user: vagrant
+    shell: |
+        cd /host-machine/.hypress/htdocs/wp
+        wp plugin activate {{ hypress_slug }}
+    when: hypress_type == 'plugin'
+
 
   handlers:
   - name: restart apache2

@@ -48,6 +48,7 @@ module.exports = class extends Generator {
 
   writing() {
     let replaceFields = {
+      // Project information
       projectSlug: this.config.get('project-slug'),
       projectName: this.config.get('project-name'),
 
@@ -62,10 +63,11 @@ module.exports = class extends Generator {
       randString8: randomstring.generate(32)
     };
 
+    // Copy files
     this.fs.copyTpl(this.templatePath(), this.destinationPath(), replaceFields);
-
+    this.fs.copyTpl(this.templatePath('.*'), this.destinationPath(), replaceFields);
     this.fs.copyTpl(
-      this.templatePath('.hypress/'),
+      this.templatePath('.hypress'),
       this.destinationPath('.hypress'),
       replaceFields
     );
