@@ -1,0 +1,9 @@
+{
+  "generator-node": {
+    "promptValues": {
+      "authorName": "Cem Derin",
+      "authorEmail": "cemyderin@gmail.com",
+      "authorUrl": ""
+    }
+  }
+}

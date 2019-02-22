@@ -1,0 +1,5 @@
+.idea
+node_modules
+coverage
+__dev/_tmp
+__dev/*.zip
