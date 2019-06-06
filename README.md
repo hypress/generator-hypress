@@ -1,5 +1,5 @@
 # generator-hypress
-![Version](https://img.shields.io/badge/version-v0.0.1-violet.svg)
+![Version](https://img.shields.io/badge/version-v0.0.2-violet.svg)
 ![Last commit](https://img.shields.io/github/last-commit/hypress/generator-hypress.svg?style=flat)
 ![Build status](https://api.travis-ci.org/hypress/generator-hypress.svg?branch=develop)
 
