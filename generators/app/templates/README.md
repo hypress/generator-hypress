@@ -2,7 +2,7 @@
 ![Version](https://img.shields.io/badge/version-v0.0.3-violet.svg)
 ![Last commit](https://img.shields.io/github/last-commit/hypress/project-skeleton.svg?style=flat)
 ![Build status](https://api.travis-ci.org/hypress/project-skeleton.svg?branch=develop)
-![WordPress v5.0.3](https://img.shields.io/badge/wordpress-v5.0.3-blue.svg)
+![WordPress v5.0.3](https://img.shields.io/badge/wordpress-v5.x.x-blue.svg)
 
 A very basic project skeleton for hypress projects. The main goal is to keep as much as
 dependencies away from the host machine.
