@@ -1,5 +1,9 @@
 {
   "name": "<%= projectSlug %>",
+  "author": {
+    "name": "<%= projectAuthorName %>",
+    "email": "<%= projectAuthorEmail %>"
+  },
   "version": "0.0.0",
   "description": "",
   "main": "index.js",
@@ -9,7 +13,6 @@
     "build": "webpack --config .hypress/webpack.config.js  --mode=production --info-verbosity verbose",
     "bundle": "sh ./.hypress/scripts/bundle.sh"
   },
-  "author": "",
   "license": "ISC",
   "dependencies": {},
   "devDependencies": {

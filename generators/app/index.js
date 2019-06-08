@@ -2,6 +2,8 @@
 const Generator = require('yeoman-generator');
 const slugify = require('slugify');
 const randomstring = require('randomstring');
+const email = require('./git-user-email');
+const user = require('git-user-name');
 
 module.exports = class extends Generator {
   prompting() {
@@ -16,6 +18,8 @@ module.exports = class extends Generator {
       .then(props => {
         this.props = Object.assign(this.props, props);
         this.config.set('project-slug', props.slug);
+        this.config.set('author-name', props.authorname);
+        this.config.set('author-email', props.authoremail);
         console.log('done', this.props);
       });
   }
@@ -40,6 +44,18 @@ module.exports = class extends Generator {
         name: 'slug',
         message: 'Please provide a project slug',
         default: slugify(props.name.toLowerCase())
+      },
+      {
+        type: 'input',
+        name: 'authorname',
+        message: 'Please provide an author name',
+        default: user()
+      },
+      {
+        type: 'input',
+        name: 'authoremail',
+        message: 'Please provide an author email',
+        default: email()
       }
     ];
 
@@ -51,7 +67,8 @@ module.exports = class extends Generator {
       // Project information
       projectSlug: this.config.get('project-slug'),
       projectName: this.config.get('project-name'),
-
+      projectAuthorName: this.config.get('author-name'),
+      projectAuthorEmail: this.config.get('author-email'),
       // Random strings for WP
       randString1: randomstring.generate(32),
       randString2: randomstring.generate(32),
