@@ -1,0 +1,3 @@
+hypress_slug: <%= projectSlug %>
+hypress_type: theme
+# hypress_type: plugin
