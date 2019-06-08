@@ -33,9 +33,15 @@ npm run update-skeleton
 ```
 
 This copies the latest skeleton files to the app generator template folder. 
-You need to adjust the following files with 
-`<%= projectSlug %>` and `<%= projectName %>`. 
+You need to adjust the following files with all project variables.
+ 
+#### Project variables
+- `<%= projectSlug %>`
+- `<%= projectName %>`
+- `<%= authorName %>`
+- `<%= authorEmail %>` 
 
+#### Files
 - `README.md`
 - `Vagrantfile`
 - `generators/app/templates/composer.json`
