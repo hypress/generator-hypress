@@ -1,7 +1,12 @@
 {
   "name": "<%= projectSlug %>",
   "version": "0.0.0",
-  "authors": [],
+  "authors": [
+    {
+      "name": "<%= projectAuthorName %>",
+      "email": "<%= projectAuthorEmail %>"
+    }
+  ],
   "require": {
     "johnpbloch/wordpress": "5.2.4"
   },
