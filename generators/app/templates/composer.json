@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "authors": [],
   "require": {
-    "johnpbloch/wordpress": "^5"
+    "johnpbloch/wordpress": "5.2.4"
   },
   "extra": {
     "wordpress-install-dir": "./.hypress/htdocs/wp/",
@@ -18,5 +18,8 @@
         "type:wordpress-theme"
       ]
     }
+  },
+  "config": {
+    "vendor-dir": "src/vendor"
   }
 }
