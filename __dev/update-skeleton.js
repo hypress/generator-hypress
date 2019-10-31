@@ -5,7 +5,7 @@ var ncp = require('ncp').ncp;
 
 // Download zipfile
 function downloadFile() {
-  request('https://github.com/hypress/project-skeleton/archive/v0.0.4.zip')
+  request('https://github.com/hypress/project-skeleton/archive/v0.1.3.zip')
     .pipe(fs.createWriteStream('./__dev/hypress-skeleton.zip'))
     .on('close', function() {
       extractFile();

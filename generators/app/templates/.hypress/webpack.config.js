@@ -1,9 +1,11 @@
 const path = require('path');
 
 module.exports = {
-	entry: ['./src/js/index.js', './src/scss/index.scss'],
+	entry: {
+		'public': ['./src/js/index.js', './src/scss/style.scss'],
+		'private': ['./src/js/index-private.js', './src/scss/style-private.scss']
+	},
 	output: {
-		filename: 'bundle.js',
 		path: path.resolve(__dirname, '../src')
 	},
 	module: {
@@ -13,8 +15,9 @@ module.exports = {
 				use: [
 					{
 						loader: 'file-loader',
+
 						options: {
-							name: 'style.css',
+							name: '[name].css',
 							outputPath: './'
 						}
 					},

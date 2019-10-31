@@ -1,5 +1,5 @@
 <?php
-	
+
 	/**
 	 * The base configuration for WordPress
 	 *
@@ -22,22 +22,22 @@
 	// ** MySQL settings - You can get this info from your web host ** //
 	/** The name of the database for WordPress */
 	define('DB_NAME', 'hypress');
-	
+
 	/** MySQL database username */
-	define('DB_USER', 'hypress');
-	
+	define('DB_USER', 'root');
+
 	/** MySQL database password */
 	define('DB_PASSWORD', 'hypress');
-	
+
 	/** MySQL hostname */
-	define('DB_HOST', 'localhost');
-	
+	define('DB_HOST', 'hypress_mysql');
+
 	/** Database Charset to use in creating database tables. */
 	define('DB_CHARSET', 'utf8');
-	
+
 	/** The Database Collate type. Don't change this if in doubt. */
 	define('DB_COLLATE', '');
-	
+
 	/**#@+
 	 * Authentication Unique Keys and Salts.
 	 *
@@ -47,17 +47,17 @@
 	 *
 	 * @since 2.6.0
 	 */
-	define('AUTH_KEY',         '<%= randString1 %>');
-	define('SECURE_AUTH_KEY',  '<%= randString2 %>');
-	define('LOGGED_IN_KEY',    '<%= randString3 %>');
-	define('NONCE_KEY',        '<%= randString4 %>');
-	define('AUTH_SALT',        '<%= randString5 %>');
-	define('SECURE_AUTH_SALT', '<%= randString6 %>');
-	define('LOGGED_IN_SALT',   '<%= randString7 %>');
-	define('NONCE_SALT',       '<%= randString8 %>');
-	
+  define('AUTH_KEY',         '<%= randString1 %>');
+  define('SECURE_AUTH_KEY',  '<%= randString2 %>');
+  define('LOGGED_IN_KEY',    '<%= randString3 %>');
+  define('NONCE_KEY',        '<%= randString4 %>');
+  define('AUTH_SALT',        '<%= randString5 %>');
+  define('SECURE_AUTH_SALT', '<%= randString6 %>');
+  define('LOGGED_IN_SALT',   '<%= randString7 %>');
+  define('NONCE_SALT',       '<%= randString8 %>');
+
 	/**#@-*/
-	
+
 	/**
 	 * WordPress Database Table prefix.
 	 *
@@ -65,7 +65,7 @@
 	 * a unique prefix. Only numbers, letters, and underscores please!
 	 */
 	$table_prefix  = 'wp_';
-	
+
 	/**
 	 * For developers: WordPress debugging mode.
 	 *
@@ -79,12 +79,12 @@
 	 * @link https://codex.wordpress.org/Debugging_in_WordPress
 	 */
 	define('WP_DEBUG', true);
-	
+
 	/* That's all, stop editing! Happy blogging. */
-	
+
 	/** Absolute path to the WordPress directory. */
 	if ( !defined('ABSPATH') )
 		define('ABSPATH', dirname(__FILE__) . '/');
-	
+
 	/** Sets up WordPress vars and included files. */
 	require_once(ABSPATH . 'wp-settings.php');
