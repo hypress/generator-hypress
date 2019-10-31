@@ -1,8 +1,8 @@
 # <%= projectName %>
-![Version](https://img.shields.io/badge/version-v0.0.3-violet.svg)
+![Version](https://img.shields.io/badge/version-v0.1.3-violet.svg)
 ![Last commit](https://img.shields.io/github/last-commit/hypress/project-skeleton.svg?style=flat)
 ![Build status](https://api.travis-ci.org/hypress/project-skeleton.svg?branch=develop)
-![WordPress v5.0.3](https://img.shields.io/badge/wordpress-v5.x.x-blue.svg)
+![WordPress v5.2.4](https://img.shields.io/badge/wordpress-v5.2.4-blue.svg)
 
 A very basic project skeleton for hypress projects. The main goal is to keep as much as
 dependencies away from the host machine.
@@ -12,9 +12,15 @@ The base project skeleton for [hypress] driven WordPress projects.
 This skeleton can be generated with the [yeoman hypress generator][generator-hypress].
 
 ## Requirements
+
+### Vagrant
 1. [VirtualBox](https://www.virtualbox.org/)
 2. [Vagrant](https://www.vagrantup.com/)
 3. [vagrant-hostmanager](https://github.com/devopsgroup-io/vagrant-hostmanager)
+
+### Docker
+1. [Docker](https://docker.com)
+2. [Docker Compose](https://docs.docker.com/compose/install/)
 
 ## Install dependencies with homebrew (macOS)
 Run
@@ -35,18 +41,31 @@ To bring your development stack up, just start the vagrant box.
 vagrant up
 ```
 
-Frontend: http://<%= projectSlug %>.local  
-Backend: http://<%= projectSlug %>.local/wp-admin  
-phpMyAdmin: http://<%= projectSlug %>.local/phpmyadmin
 
-MySQL user: `hypress`   
-MySQL password: `hypress`  
-MySQL database: `hypress`  
+If you are using Docker, run
+```bash
+docker-compose up
+```
 
-WordPress user: `hypress`  
-WordPress password: `hypress`
+| Endpoint              | URL                                   |
+|---------              | ---                                   |
+| Frontend              | http://<%= projectSlug %>.local                  |
+| Backend               | http://<%= projectSlug %>.local/wp-admin         |
+| phpMyAdmin            | http://<%= projectSlug %>.local/phpmyadmin       |
+|                       |                                       |
+| **Docker** Frontend   | http://<%= projectSlug %>.localhost              |
+| **Docker** Backend    | http://<%= projectSlug %>.localhost/wp-admin     |
+| **Docker** phpMyAdmin | http://<%= projectSlug %>.localhost/phpmyadmin   |
 
-## Enable local https
+| Credential            | Value                                 |
+|-----------            | -----                                 |
+| MySQL user            | `hypress`                             |
+| MySQL password        | `hypress`                             |
+| MySQL database        | `hypress`                             |
+| WordPress user        | `hypress`                             |
+| WordPress password    | `hypress`                             |
+
+## Enable local https (Vagrant only)
 To get local https, you can utilize [mkcert]. Follow the link for installation instructions.
 
 After installing mkcert and creating a local CA create a certificate for hypress.

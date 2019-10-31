@@ -1,5 +1,5 @@
-# generator-hypress (v0.0.2)
-![Version](https://img.shields.io/badge/version-v0.0.2-violet.svg)
+# generator-hypress (v0.0.3)
+![Version](https://img.shields.io/badge/version-v0.0.3-violet.svg)
 ![Last commit](https://img.shields.io/github/last-commit/hypress/generator-hypress.svg?style=flat)
 ![Build status](https://api.travis-ci.org/hypress/generator-hypress.svg?branch=develop)
 
@@ -33,14 +33,15 @@ npm run update-skeleton
 ```
 
 This copies the latest skeleton files to the app generator template folder. 
-You need to adjust the following files with 
-`<%= projectSlug %>` and `<%= projectName %>`. 
+You need to adjust the following files with all project variables.
+ 
+#### Project variables
+- `<%= projectSlug %>`
+- `<%= projectName %>`
+- `<%= authorName %>`
+- `<%= authorEmail %>` 
 
-- `README.md`
-- `Vagrantfile`
-- `generators/app/templates/composer.json`
-- `generators/app/templates/package.json`
-- `generators/app/templates/.hypress/ansible/settings.yml`
+Check your git status for file changes and adjust them to utilize them with this generator.
 
 
 

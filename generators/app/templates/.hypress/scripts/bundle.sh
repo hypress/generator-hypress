@@ -24,3 +24,4 @@ mkdir -p ./dist
 cp -R ./src/* ./dist
 rm -R ./dist/js
 rm -R ./dist/scss
+rm -R ./dist/vendor/johnpbloch

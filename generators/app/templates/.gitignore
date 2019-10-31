@@ -4,7 +4,12 @@ vendor
 node_modules
 src/bundle.js
 src/style.css
+src/style-private.css
+src/private.js
+src/public.js
 .hypress/hypress.local.pem
 .hypress/ansible/hypress.retry
 .hypress/*.pem
+.hypress/logs
+dist
 .idea
